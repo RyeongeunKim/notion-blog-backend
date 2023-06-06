@@ -21,19 +21,31 @@ const secretKey = process.env.NOTION_KEY;
 const headers = {
   "Content-Type": "application/json",
   Authorization: `Bearer ${secretKey}`,
-  "Notion-Version": "2022-02-22",
+  "Notion-Version": "2022-06-28",
 };
 
 // Route to fetch database data
-app.get("/:database_id", async (req, res) => {
+app.post("/:database_id", async (req, res) => {
   const { database_id } = req.params;
-  const resp = await axios({
-    method: "GET",
-    url: "https://api.notion.com/v1/databases/" + database_id,
+  const response = await axios({
+    method: "POST",
+    url: `https://api.notion.com/v1/databases/${database_id}/query`,
     headers,
   });
-  return res.json(resp.data);
+  console.log(response);
+  return res.json(response.data);
 });
+
+// Route to fetch pages data
+// app.post("/:page_id", async (req, res) => {
+//   const { page_id } = req.params;
+//   const response = await axios({
+//     method: "POST",
+//     url: "https://api.notion.com/v1/pages/" + page_id,
+//     headers,
+//   });
+//   return res.json(response.data);
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
