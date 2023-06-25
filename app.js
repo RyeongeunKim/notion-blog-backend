@@ -16,5 +16,5 @@ app.use((req, res, next) => {
 app.use("/posts", postsRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`notion blog app listening on port ${port}`);
 });
